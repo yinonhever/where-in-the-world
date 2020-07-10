@@ -1,0 +1,15 @@
+.toggler {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  cursor: pointer;
+
+  &__icon {
+    font-size: 1.8rem;
+    margin-right: 0.8rem;
+  }
+
+  &__text {
+    font-size: 1.6rem;
+  }
+}

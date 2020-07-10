@@ -1,0 +1,38 @@
+.card {
+  background-color: $color-white;
+  height: 100%;
+  border-radius: 5px;
+  box-shadow: 0 0 7px 2px rgba(0, 0, 0, 0.03);
+
+  &__flag {
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+    display: block;
+  }
+
+  &__content {
+    padding: 2.4rem 2.4rem 4.6rem;
+  }
+
+  &__title {
+    font-size: 1.8rem;
+    line-height: 1.444;
+    margin-bottom: 1.6rem;
+  }
+
+  &__line {
+    line-height: 1.143;
+
+    &:not(:last-child) {
+      margin-bottom: 0.8rem;
+    }
+  }
+
+  &__line-title {
+    font-weight: 600;
+  }
+}
+
+.dark .card {
+  background-color: $color-dark-blue-1;
+}

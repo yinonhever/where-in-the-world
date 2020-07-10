@@ -4,12 +4,16 @@ import FilterArea from "./FilterArea";
 import Input from "./Input";
 import Select from "./Select";
 import Grid from "./Grid";
+import Spinner from "./Spinner";
+import Error from "./Error";
 
 const Home = () => {
     const [countries, setCountries] = useState([]);
     const initialList = useRef(null);
     const inputList = useRef(null);
     const region = useRef(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         document.querySelector("body").classList.remove("detail");
@@ -20,13 +24,15 @@ const Home = () => {
             .then(response => {
                 initialList.current = response.data;
                 setCountries(initialList.current);
+                setLoading(false);
             })
     }, [])
 
     const inputChangeHandler = input => {
         if (input === "") {
+            setError(false);
             inputList.current = null;
-            if (region) {
+            if (region.current) {
                 setCountries(filterByRegion(initialList));
             }
             else {
@@ -36,20 +42,24 @@ const Home = () => {
         else {
             axios.get("https://restcountries.eu/rest/v2/name/" + input)
                 .then(response => {
+                    setError(false);
                     inputList.current = response.data;
-                    if (region) {
+                    if (region.current) {
                         setCountries(filterByRegion(inputList));
                     }
                     else {
                         setCountries(inputList.current);
                     }
                 })
+                .catch(() => {
+                    setError(true);
+                })
         }
     }
 
     const regionSelectHandler = selection => {
         region.current = selection;
-        if (inputList) {
+        if (inputList.current) {
             setCountries(filterByRegion(inputList));
         }
         else {
@@ -58,7 +68,7 @@ const Home = () => {
     }
 
     const filterByRegion = list => {
-        return list.current.filter(item => item.region === region.current);
+        return list.current.filter(item => item.region.includes(region.current));
     }
 
     return (
@@ -68,7 +78,10 @@ const Home = () => {
                 <Select changed={regionSelectHandler} />
             </FilterArea>
 
-            <Grid items={countries} />
+            {loading ? <Spinner /> : null}
+            {!loading && (error || countries.length === 0) ?
+                <Error /> :
+                <Grid items={countries} />}
         </main>
     )
 }

@@ -9,13 +9,18 @@ const Input = props => {
     }
 
     return (
-        <input
-            type="text"
-            className="input"
-            placeholder="Search for a country..."
-            value={query}
-            onChange={event => changeHandler(event)}
-        />
+        <div className="input">
+            <div className="input__icon-area">
+                <i class="input__icon fas fa-search"></i>
+            </div>
+            <input
+                type="text"
+                className="input__type-area"
+                placeholder="Search for a country..."
+                value={query}
+                onChange={event => changeHandler(event)}
+            />
+        </div>
     )
 }
 

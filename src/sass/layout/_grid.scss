@@ -1,0 +1,8 @@
+.grid {
+  padding: 0 $padding-side-desktop;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 5.2vw;
+  grid-row-gap: 5vw;
+  align-items: stretch;
+}
