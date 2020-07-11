@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Auxilliary from "../hoc/Auxilliary";
 import Header from "./Header";
 import Home from "./Home";
@@ -11,6 +11,7 @@ const Layout = () => (
             <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/details/:code" component={Detail} />
+                <Redirect from="/" to="/" />
             </Switch>
         </Auxilliary>
 )

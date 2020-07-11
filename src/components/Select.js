@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import Option from "./Option";
 
 const Select = props => {
     const [selected, setSelected] = useState("Filter By Region");
     const [active, setActive] = useState(false);
 
-    const openHandler = () => {
+    const clickHandler = () => {
         setActive(!active);
     }
 
@@ -16,17 +17,15 @@ const Select = props => {
 
     return (
         <div className={active ? "select active" : "select"}>
-            <div className="select__trigger" onClick={openHandler}>
+            <div className="select__trigger" onClick={clickHandler}>
                 <span className="select__trigger-text">{selected}</span>
                 <i className="select__icon fas fa-chevron-down"></i>
             </div>
             <div className="select__dropdown">
                 <div className="select__options">
-                    <div className="select__option" onClick={() => selectHandler("Africa")}>Africa</div>
-                    <div className="select__option" onClick={() => selectHandler("America")}>America</div>
-                    <div className="select__option" onClick={() => selectHandler("Asia")}>Asia</div>
-                    <div className="select__option" onClick={() => selectHandler("Europe")}>Europe</div>
-                    <div className="select__option" onClick={() => selectHandler("Oceania")}>Oceania</div>
+                    {["Africa", "America", "Asia", "Europe", "Oceania"].map(item => (
+                        <Option text={item} key={item} clicked={selectHandler} />
+                    ))}
                 </div>
             </div>
         </div>

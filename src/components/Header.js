@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import usePersistedState from "../usePersistedState";
 
 const Header = () => {
-    const [darkTheme, setDarkTheme] = useState(false);
+    const [darkTheme, setDarkTheme] = usePersistedState("darkTheme", false);
+
+    useEffect(() => {
+        const body = document.querySelector("body").classList;
+        if(darkTheme) {
+            body.add("dark");
+        }
+        else {
+            body.remove("dark");
+        }
+    }, [darkTheme])
 
     const themeToggleHandler = () => {
         setDarkTheme(!darkTheme);
-        document.querySelector("body").classList.toggle("dark");
     }
 
     return (

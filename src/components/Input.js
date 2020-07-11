@@ -11,7 +11,7 @@ const Input = props => {
     return (
         <div className="input">
             <div className="input__icon-area">
-                <i class="input__icon fas fa-search"></i>
+                <i className="input__icon fas fa-search"></i>
             </div>
             <input
                 type="text"

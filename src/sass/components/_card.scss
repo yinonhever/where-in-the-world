@@ -20,16 +20,12 @@
     margin-bottom: 1.6rem;
   }
 
-  &__line {
+  .detail-line {
     line-height: 1.143;
 
     &:not(:last-child) {
       margin-bottom: 0.8rem;
     }
-  }
-
-  &__line-title {
-    font-weight: 600;
   }
 }
 

@@ -1,0 +1,61 @@
+.detail-page {
+  padding: 8rem $padding-side-desktop 15rem;
+  font-size: 1.6rem;
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8rem;
+  }
+
+  &__flag {
+    width: 39vw;
+  }
+
+  &__content {
+    width: 41.5vw;
+  }
+
+  &__heading {
+    font-size: 3.2rem;
+    margin-bottom: 2.4rem;
+  }
+
+  &__details {
+    display: flex;
+    justify-content: space-between;
+    line-height: 2;
+  }
+
+  &__column {
+    max-width: 50%;
+
+    &:not(:last-child) {
+      margin-right: 3rem;
+    }
+  }
+
+  &__buttons-row {
+    display: flex;
+    align-items: center;
+    margin-top: 7rem;
+  }
+
+  &__buttons-title {
+    font-weight: 600;
+    line-height: 1.5;
+    margin-right: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -0.5rem;
+
+    .button {
+      margin: 0.5rem;
+    }
+  }
+}

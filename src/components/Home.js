@@ -9,14 +9,15 @@ import Error from "./Error";
 
 const Home = () => {
     const [countries, setCountries] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
     const initialList = useRef(null);
     const inputList = useRef(null);
     const region = useRef(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
 
     useEffect(() => {
         document.querySelector("body").classList.remove("detail");
+        document.querySelector("body").style.overflow = "initial";
     }, [])
 
     useEffect(() => {
