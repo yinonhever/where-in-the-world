@@ -38,3 +38,9 @@ body {
     transform: translateY(-50%);
   }
 }
+
+.detail-page .abs-center {
+  @include respond(mobile) {
+     width: 90%;
+  }
+}
