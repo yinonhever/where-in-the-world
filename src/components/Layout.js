@@ -6,14 +6,14 @@ import Home from "./Home";
 import Detail from "./Detail";
 
 const Layout = () => (
-        <Auxilliary>
-            <Header />
-            <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/details/:code" component={Detail} />
-                <Redirect from="/" to="/" />
-            </Switch>
-        </Auxilliary>
+    <Auxilliary>
+        <Header />
+        <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/details/:code" component={Detail} />
+            <Redirect from="/" to="/" />
+        </Switch>
+    </Auxilliary>
 )
 
 export default Layout;

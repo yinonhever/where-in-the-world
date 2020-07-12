@@ -9,6 +9,12 @@
     display: inline-flex;
     align-items: center;
     font-size: 1.6rem;
+
+    @include respond(tablet) {
+      font-size: 1.4rem;
+      padding: 0.6rem 2.4rem;
+      line-height: 1.429;
+    }
   }
 
   &--sm {
@@ -17,10 +23,19 @@
     box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);
     display: inline-block;
     font-size: 1.4rem;
+
+    @include respond(tablet) {
+      font-size: 1.2rem;
+      padding: 0.6rem 2.4rem;
+    }
   }
 
   &__icon {
     margin-right: 1.1rem;
+
+    @include respond(tablet) {
+      margin-right: 0.9rem;
+    }
   }
 }
 

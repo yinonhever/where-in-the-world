@@ -9,7 +9,7 @@ import Error from "./Error";
 
 const Detail = props => {
     const [details, setDetails] = useState(null);
-    const [borders, setBorders] = useState([]);
+    const [borders, setBorders] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const history = useHistory();
@@ -23,11 +23,13 @@ const Detail = props => {
         setDetails(null)
         setBorders([]);
         setLoading(true);
+
         axios.get("https://restcountries.eu/rest/v2/alpha/" + props.match.params.code)
             .then(response => {
                 setDetails(response.data);
                 setLoading(false);
                 setError(false);
+
                 response.data.borders.forEach(code => {
                     axios.get("https://restcountries.eu/rest/v2/alpha/" + code)
                         .then(res => {
@@ -45,16 +47,21 @@ const Detail = props => {
         history.goBack();
     }
 
-    const mapWithCommas = (array, withName) => (
-        array.map((item, index) => {
-            if (withName) {
-                return index === array.length - 1 ? item.name : item.name + ", ";
-            }
-            else {
-                return index === array.length - 1 ? item : item + ", ";
-            }
-        })
-    )
+    const mapWithCommas = (array, withName) => {
+        if (array[0] === "") {
+            return "-";
+        }
+        else {
+            return array.map((item, index) => {
+                if (withName) {
+                    return index === array.length - 1 ? item.name : item.name + ", ";
+                }
+                else {
+                    return index === array.length - 1 ? item : item + ", ";
+                }
+            })
+        }
+    }
 
     return (
         <section className="detail-page">
@@ -96,10 +103,10 @@ const Detail = props => {
                                 <span className="detail-page__buttons-title">Border Countries:</span>
                                 <div className="detail-page__buttons">
                                     {borders.map(border => (
-                                        <Link to={"/details/" + border.code} style={{
-                                            textDecoration: "none",
-                                            color: "inherit"
-                                        }}>
+                                        <Link
+                                            to={"/details/" + border.code}
+                                            key={border.code}
+                                            style={{ textDecoration: "none", color: "inherit" }}>
                                             <Button text={border.name} />
                                         </Link>
                                     ))}

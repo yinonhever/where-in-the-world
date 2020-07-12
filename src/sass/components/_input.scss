@@ -6,6 +6,11 @@
   border-radius: 5px;
   display: flex;
 
+  @include respond(mobile) {
+    width: 100%;
+    margin-bottom: 4rem;
+  }
+
   &__icon {
     padding: 1.9rem 2.4rem 1.9rem 3.2rem;
     font-size: 1.6rem;
@@ -19,8 +24,14 @@
     background-color: inherit;
     font-family: inherit;
     font-weight: 300;
+    font-size: inherit;
     color: inherit;
     line-height: 1.429;
+
+    @include respond(mobile) {
+      font-size: 1.2rem;
+      line-height: 1.667;
+    }
 
     &::placeholder {
       color: currentColor;

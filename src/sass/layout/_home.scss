@@ -1,3 +1,7 @@
 .home {
   padding: 4.8rem 0 4.5rem;
+
+  @include respond(mobile) {
+    padding: 2.4rem 0 6.5rem;
+  }
 }

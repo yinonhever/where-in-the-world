@@ -7,9 +7,17 @@
   &__icon {
     font-size: 1.8rem;
     margin-right: 0.8rem;
+
+    @include respond(mobile) {
+      font-size: 1.1rem;
+    }
   }
 
   &__text {
     font-size: 1.6rem;
+
+    @include respond(mobile) {
+      font-size: 1.2rem;
+    }
   }
 }

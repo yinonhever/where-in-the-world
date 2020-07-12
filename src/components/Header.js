@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import usePersistedState from "../usePersistedState";
 
 const Header = () => {
-    const [darkTheme, setDarkTheme] = usePersistedState("darkTheme", false);
+    const [darkTheme, setDarkTheme] = usePersistedState("darkTheme", true);
 
     useEffect(() => {
         const body = document.querySelector("body").classList;

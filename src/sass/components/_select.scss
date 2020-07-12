@@ -8,16 +8,31 @@
   position: relative;
   z-index: 99999;
 
+  @include respond(mobile) {
+    font-size: 1.2rem;
+    line-height: 1.667;
+  }
+
   &__trigger {
     padding: 1.8rem 1.8rem 1.95rem 2.4rem;
     width: 20rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @include respond(mobile) {
+      padding: 1.4rem 1.9rem 1.4rem 2.4rem;
+      width: 53vw;
+      min-width: 20rem;
+    }
   }
 
   &__icon {
     font-size: 1.2rem;
+
+    @include respond(mobile) {
+      font-size: 1rem;
+    }
   }
 
   &__dropdown {
@@ -30,6 +45,10 @@
     line-height: inherit;
     border-radius: inherit;
     visibility: hidden;
+
+    @include respond(mobile) {
+      line-height: 1.333;
+    }
   }
 
   &.active &__dropdown {
