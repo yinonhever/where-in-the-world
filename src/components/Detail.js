@@ -65,7 +65,7 @@ const Detail = props => {
 
     return (
         <section className="detail-page">
-            <Button big icon text="Back" clicked={prevPageHandler} />
+            <Button big icon text="Back" clicked={prevPageHandler} style={{userSelect: "none"}} />
             {loading ? <Spinner /> : null}
             {error ? <Error /> : null}
             {details ? (
