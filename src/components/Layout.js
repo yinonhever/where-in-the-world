@@ -61,12 +61,23 @@ const Layout = () => {
     }
 
     const regionSelectHandler = selection => {
-        region.current = selection;
-        if (inputList.current) {
-            setCountries(filterByRegion(inputList));
+        if(selection === "All Regions") {
+            region.current = null;
+            if(inputList.current) {
+                setCountries(inputList.current);
+            }
+            else {
+                setCountries(initialList.current);
+            }
         }
         else {
-            setCountries(filterByRegion(initialList));
+            region.current = selection;
+            if (inputList.current) {
+                setCountries(filterByRegion(inputList));
+            }
+            else {
+                setCountries(filterByRegion(initialList));
+            }
         }
     }
 
