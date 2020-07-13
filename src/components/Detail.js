@@ -9,7 +9,7 @@ import Error from "./Error";
 
 const Detail = props => {
     const [details, setDetails] = useState(null);
-    const [borders, setBorders] = useState(null);
+    const [borders, setBorders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const history = useHistory();

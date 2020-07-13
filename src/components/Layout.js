@@ -10,8 +10,8 @@ const Layout = () => {
     const [countries, setCountries] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const [currentInput, setCurrentInput] = useState("");
     const initialList = useRef(null);
-    const currentInput = useRef("");
     const inputList = useRef(null);
     const region = useRef(null);
 
@@ -25,7 +25,7 @@ const Layout = () => {
     }, [])
 
     const inputChangeHandler = input => {
-        currentInput.current = input;
+        setCurrentInput(input);
 
         if (input === "") {
             setError(false);
@@ -87,7 +87,7 @@ const Layout = () => {
                 <Route path="/" exact render={() =>
                     <Home
                         countries={countries}
-                        inputValue={currentInput.current}
+                        inputValue={currentInput}
                         inputChanged={inputChangeHandler}
                         selectedRegion={region.current ? region.current : "Filter By Region"}
                         regionChanged={regionSelectHandler}
