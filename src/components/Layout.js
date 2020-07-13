@@ -16,11 +16,6 @@ const Layout = () => {
     const region = useRef(null);
 
     useEffect(() => {
-        document.querySelector("body").classList.remove("detail");
-        document.querySelector("body").style.overflow = "initial";
-    }, [])
-
-    useEffect(() => {
         axios.get("https://restcountries.eu/rest/v2/all")
             .then(response => {
                 initialList.current = response.data;
