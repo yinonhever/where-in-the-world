@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Option from "./Option";
 
 const Select = props => {
-    const [selected, setSelected] = useState("Filter By Region");
     const [active, setActive] = useState(false);
 
     const clickHandler = () => {
@@ -11,14 +10,13 @@ const Select = props => {
 
     const selectHandler = selection => {
         setActive(false);
-        setSelected(selection);
         props.changed(selection);
     }
 
     return (
         <div className={active ? "select active" : "select"}>
             <div className="select__trigger" onClick={clickHandler}>
-                <span className="select__trigger-text">{selected}</span>
+                <span className="select__trigger-text">{props.selected}</span>
                 <i className="select__icon fas fa-chevron-down"></i>
             </div>
             <div className="select__dropdown">
