@@ -25,22 +25,19 @@ const Detail = props => {
 
         axios.get("https://restcountries.eu/rest/v2/alpha/" + props.match.params.code)
             .then(response => {
+                response.data.borders.forEach(code => {
+                    const newBorder = props.countries.find(country => country.alpha3Code === code);
+                    setBorders(borders => [...borders, {name: newBorder.name, code: code}]);
+                })
                 setDetails(response.data);
                 setLoading(false);
                 setError(false);
-
-                response.data.borders.forEach(code => {
-                    axios.get("https://restcountries.eu/rest/v2/alpha/" + code)
-                        .then(res => {
-                            setBorders(borders => [...borders, { name: res.data.name, code: code }])
-                        })
-                })
             })
             .catch(() => {
                 setLoading(false);
                 setError(true);
             })
-    }, [props.match.params.code])
+    }, [props.match.params.code, props.countries])
 
     const prevPageHandler = () => {
         history.goBack();

@@ -56,9 +56,9 @@ const Layout = () => {
     }
 
     const regionSelectHandler = selection => {
-        if(selection === "All Regions") {
+        if (selection === "All Regions") {
             region.current = null;
-            if(inputList.current) {
+            if (inputList.current) {
                 setCountries(inputList.current);
             }
             else {
@@ -95,7 +95,11 @@ const Layout = () => {
                         error={error}
                     />
                 } />
-                <Route path="/details/:code" component={Detail} />
+
+                <Route path="/details/:code" render={props => (
+                    <Detail countries={initialList.current} {...props} />
+                )} />
+
                 <Redirect from="/" to="/" />
             </Switch>
         </Auxilliary>
