@@ -6,7 +6,7 @@ const DetailLine = props => {
         value = props.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     else {
-        value = props.value !== "" ? props.value : "-";
+        value = props.value.toString().trim() !== "" ? props.value : "-";
     }
 
     return (
