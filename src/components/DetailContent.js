@@ -6,7 +6,7 @@ import Button from "./Button";
 
 const DetailContent = props => {
     const mapWithCommas = (array, withName) => {
-        const checkForEmptyValue = (index, withName) => {
+        const checkForEmptyValue = index => {
             if (withName) {
                 return index === array.length - 1 || !array[index + 1].name
             }
@@ -21,10 +21,10 @@ const DetailContent = props => {
         else {
             return array.map((item, index) => {
                 if (withName) {
-                    return checkForEmptyValue(index, true) ? item.name : item.name + ", ";
+                    return checkForEmptyValue(index) ? item.name : item.name + ", ";
                 }
                 else {
-                    return checkForEmptyValue(index, false) ? item : item + ", ";
+                    return checkForEmptyValue(index) ? item : item + ", ";
                 }
             })
         }
