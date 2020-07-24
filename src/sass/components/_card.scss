@@ -3,6 +3,11 @@
   height: 100%;
   border-radius: 5px;
   box-shadow: 0 0 7px 2px rgba(0, 0, 0, 0.03);
+  transition: transform 0.5s;
+
+  &:hover {
+    transform: scale(1.15);
+  }
 
   &__flag {
     width: 100%;
