@@ -5,10 +5,10 @@ import DetailLine from "./DetailLine";
 import Button from "./Button";
 
 const DetailContent = props => {
-    const mapWithCommas = (array, withName) => {
+    const mapWithCommas = (array, prop) => {
         const checkForEmptyValue = index => {
-            if (withName) {
-                return index === array.length - 1 || !array[index + 1].name
+            if (prop) {
+                return index === array.length - 1 || !array[index + 1][prop];
             }
             else {
                 return index === array.length - 1 || array[index + 1].toString().trim() === "";
@@ -20,8 +20,8 @@ const DetailContent = props => {
         }
         else {
             return array.map((item, index) => {
-                if (withName) {
-                    return checkForEmptyValue(index) ? item.name : item.name + ", ";
+                if (prop) {
+                    return checkForEmptyValue(index) ? item[prop] : item[prop] + ", ";
                 }
                 else {
                     return checkForEmptyValue(index) ? item : item + ", ";
@@ -47,15 +47,15 @@ const DetailContent = props => {
                         <div className="detail-page__column">
                             <DetailLine
                                 title="Top Level Domain"
-                                value={mapWithCommas(props.details.topLevelDomain, false)}
+                                value={mapWithCommas(props.details.topLevelDomain)}
                             />
                             <DetailLine
                                 title="Currencies"
-                                value={mapWithCommas(props.details.currencies, true)}
+                                value={mapWithCommas(props.details.currencies, "name")}
                             />
                             <DetailLine
                                 title="Languages"
-                                value={mapWithCommas(props.details.languages, true)}
+                                value={mapWithCommas(props.details.languages, "name")}
                             />
                         </div>
                     </div>
