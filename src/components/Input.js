@@ -24,7 +24,6 @@ const Input = () => {
     useEffect(() => {
         if (firstRender.current) {
             firstRender.current = false;
-            console.log("first render")
             return;
         }
 
