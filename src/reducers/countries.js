@@ -2,8 +2,8 @@ import {
     COUNTRIES_LOAD_REQUEST,
     COUNTRIES_LOAD_SUCCESS,
     COUNTRIES_LOAD_FAIL,
-    COUNTRIES_SEARCH_REQUEST,
-    COUNTRIES_SEARCH_SUCCESS,
+    COUNTRIES_INPUT_CHANGE,
+    COUNTRIES_SEARCH,
     COUNTRIES_FILTER_REGION
 } from "../actions/types";
 
@@ -34,16 +34,17 @@ const countriesReducer = (state = initialState, { type, payload }) => {
                 error: true,
                 loading: false
             };
-        case COUNTRIES_SEARCH_REQUEST:
+        case COUNTRIES_INPUT_CHANGE:
             return {
                 ...state,
-                searchInput: payload
+                loading: true
             };
-        case COUNTRIES_SEARCH_SUCCESS:
+        case COUNTRIES_SEARCH:
         case COUNTRIES_FILTER_REGION:
             return {
                 ...state,
-                ...payload
+                ...payload,
+                loading: false
             };
         default:
             return state;

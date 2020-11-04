@@ -2,8 +2,8 @@ import {
     COUNTRIES_LOAD_REQUEST,
     COUNTRIES_LOAD_SUCCESS,
     COUNTRIES_LOAD_FAIL,
-    COUNTRIES_SEARCH_REQUEST,
-    COUNTRIES_SEARCH_SUCCESS,
+    COUNTRIES_INPUT_CHANGE,
+    COUNTRIES_SEARCH,
     COUNTRIES_FILTER_REGION
 } from "./types";
 import axios from "axios";
@@ -26,19 +26,22 @@ export const loadCountries = () => async dispatch => {
     }
 }
 
-export const searchCountriesByName = input => async (dispatch, getState) => {
-    dispatch({
-        type: COUNTRIES_SEARCH_REQUEST,
-        payload: input
-    });
+export const changeSearchInput = () => (dispatch, getState) => {
+    const { countries: { loading } } = getState();
+    if (!loading) {
+        dispatch({ type: COUNTRIES_INPUT_CHANGE });
+    }
+}
 
+export const searchCountriesByName = input => (dispatch, getState) => {
     const { countries: { initialList, region } } = getState();
 
     if (input === "") {
         dispatch({
-            type: COUNTRIES_SEARCH_SUCCESS,
+            type: COUNTRIES_SEARCH,
             payload: {
                 countries: region ? filterByRegion(initialList, region) : initialList,
+                searchInput: input,
                 inputList: null
             }
         });
@@ -50,9 +53,10 @@ export const searchCountriesByName = input => async (dispatch, getState) => {
                 name.toLowerCase().includes(input.toLowerCase())));
 
         dispatch({
-            type: COUNTRIES_SEARCH_SUCCESS,
+            type: COUNTRIES_SEARCH,
             payload: {
                 countries: region ? filterByRegion(inputList, region) : inputList,
+                searchInput: input,
                 inputList: inputList
             }
         });

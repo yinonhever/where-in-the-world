@@ -1,15 +1,48 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchCountriesByName } from "../actions/countries";
+import { changeSearchInput, searchCountriesByName } from "../actions/countries";
 
 const Input = () => {
+    const [searchValue, setSearchValue] = useState("");
+    const firstRender = useRef(true);
+
     const dispatch = useDispatch();
 
     const { searchInput } = useSelector(state => state.countries);
 
     const changeHandler = event => {
-        dispatch(searchCountriesByName(event.target.value));
+        setSearchValue(event.target.value);
+        dispatch(changeSearchInput());
     }
+
+    useEffect(() => {
+        setSearchValue(searchInput);
+    }, [searchInput])
+
+    useEffect(() => {
+        if (firstRender.current) {
+            firstRender.current = false;
+            console.log("first render")
+            return;
+        }
+
+        let timeout;
+
+        if (searchValue !== searchInput) {
+            if (searchValue === "") {
+                dispatch(searchCountriesByName(searchValue));
+            }
+            else {
+                timeout = setTimeout(() => {
+                    dispatch(searchCountriesByName(searchValue));
+                }, 500)
+            }
+        }
+
+        return () => clearTimeout(timeout);
+    }, [dispatch, searchValue, searchInput])
 
     return (
         <div className="input">
@@ -20,7 +53,7 @@ const Input = () => {
                 type="text"
                 className="input__type-area"
                 placeholder="Search for a country..."
-                value={searchInput}
+                value={searchValue}
                 onChange={changeHandler}
                 aria-label="Search for a country"
             />
