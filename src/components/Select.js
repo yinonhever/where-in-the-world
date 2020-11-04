@@ -1,30 +1,35 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Option from "./Option";
+import { filterCountriesByRegion } from "../actions/countries";
 
-const Select = props => {
+const Select = () => {
     const [active, setActive] = useState(false);
 
-    const clickHandler = () => {
-        setActive(!active);
-    }
+    const dispatch = useDispatch();
+
+    const { region } = useSelector(state => state.countries);
 
     const selectHandler = selection => {
         setActive(false);
-        props.changed(selection);
+        dispatch(filterCountriesByRegion(selection));
     }
+
+    const options = ["Africa", "America", "Asia", "Europe", "Oceania"];
 
     return (
         <div className={active ? "select active" : "select"}>
-            <div className="select__trigger" onClick={clickHandler}>
-                <span className="select__trigger-text">{props.selected}</span>
+            <div className="select__trigger" onClick={() => setActive(!active)}>
+                <span className="select__trigger-text">
+                    {region || "Filter By Region"}
+                </span>
                 <i className="select__icon fas fa-chevron-down"></i>
             </div>
             <div className="select__dropdown">
                 <div className="select__options">
-                    {props.selected === "Filter By Region" ? null :
-                        <Option text="All Regions" clicked={selectHandler} />}
-                    {["Africa", "America", "Asia", "Europe", "Oceania"].map(item => (
-                        <Option text={item} key={item} clicked={selectHandler} />
+                    {region && <Option text="All Regions" clicked={selectHandler} />}
+                    {options.map(option => (
+                        <Option text={option} key={option} clicked={selectHandler} />
                     ))}
                 </div>
             </div>

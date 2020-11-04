@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import FilterArea from "./FilterArea";
 import Input from "./Input";
 import Select from "./Select";
@@ -6,7 +7,9 @@ import Grid from "./Grid";
 import Spinner from "./Spinner";
 import Error from "./Error";
 
-const Home = props => {
+const Home = () => {
+    const { countries, loading, error } = useSelector(state => state.countries);
+
     useEffect(() => {
         document.querySelector("body").classList.remove("detail");
         document.querySelector("body").style.overflow = "initial";
@@ -15,14 +18,13 @@ const Home = props => {
     return (
         <main className="home">
             <FilterArea>
-                <Input changed={props.inputChanged} value={props.inputValue} />
-                <Select changed={props.regionChanged} selected={props.selectedRegion} />
+                <Input />
+                <Select />
             </FilterArea>
 
-            {props.loading ? <Spinner /> : null}
-            {!props.loading && (props.error || props.countries.length === 0) ?
-                <Error /> :
-                <Grid items={props.countries} />}
+            {loading ? <Spinner /> :
+                error || countries.length === 0 ? <Error />
+                    : <Grid items={countries} />}
         </main>
     )
 }

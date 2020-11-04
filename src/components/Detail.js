@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import DetailContent from "./DetailContent";
 import Button from "./Button";
 import Spinner from "./Spinner";
 import Error from "./Error";
+import { loadDetails } from "../actions/detail";
 
 const Detail = props => {
-    const [details, setDetails] = useState(null);
-    const [borders, setBorders] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
-    const history = useHistory();
+    const { match: { params: { code } } } = props;
+
+    const dispatch = useDispatch();
+
+    const { details, borders, loading, error } = useSelector(state => state.detail);
+    const { initialList: countries } = useSelector(state => state.countries);
 
     useEffect(() => {
         document.querySelector("body").classList.add("detail");
@@ -19,30 +20,13 @@ const Detail = props => {
     }, [])
 
     useEffect(() => {
-        setDetails(null)
-        setBorders([]);
-        setLoading(true);
-
-        axios.get("https://restcountries.eu/rest/v2/alpha/" + props.match.params.code)
-            .then(response => {
-                if(props.countries) {
-                    response.data.borders.forEach(code => {
-                        const newBorder = props.countries.find(country => country.alpha3Code === code);
-                        setBorders(borders => [...borders, { name: newBorder.name, code: code }]);
-                    })
-                    setDetails(response.data);
-                    setLoading(false);
-                    setError(false);
-                }
-            })
-            .catch(() => {
-                setLoading(false);
-                setError(true);
-            })
-    }, [props.match.params.code, props.countries])
+        if (countries && countries.length > 0) {
+            dispatch(loadDetails(code, countries));
+        }
+    }, [dispatch, code, countries])
 
     const prevPageHandler = () => {
-        history.goBack();
+        props.history.goBack();
     }
 
     return (
