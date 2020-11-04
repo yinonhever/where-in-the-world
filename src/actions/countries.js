@@ -4,7 +4,6 @@ import {
     COUNTRIES_LOAD_FAIL,
     COUNTRIES_SEARCH_REQUEST,
     COUNTRIES_SEARCH_SUCCESS,
-    COUNTRIES_SEARCH_FAIL,
     COUNTRIES_FILTER_REGION
 } from "./types";
 import axios from "axios";
@@ -35,35 +34,29 @@ export const searchCountriesByName = input => async (dispatch, getState) => {
 
     const { countries: { initialList, region } } = getState();
 
-    let updatedCountries;
-
     if (input === "") {
-        updatedCountries = region ? filterByRegion(initialList, region) : initialList;
-
         dispatch({
             type: COUNTRIES_SEARCH_SUCCESS,
             payload: {
-                countries: updatedCountries,
+                countries: region ? filterByRegion(initialList, region) : initialList,
                 inputList: null
             }
         });
     }
     else {
-        try {
-            const { data } = await axios.get(`https://restcountries.eu/rest/v2/name/${input}`);
-            updatedCountries = region ? filterByRegion(data, region) : data;
+        const inputList = initialList.filter(country =>
+            country.name.toLowerCase().includes(input.toLowerCase()) ||
+            country.altSpellings.find(name =>
+                name.toLowerCase().includes(input.toLowerCase())));
 
-            dispatch({
-                type: COUNTRIES_SEARCH_SUCCESS,
-                payload: {
-                    countries: updatedCountries,
-                    inputList: data
-                }
-            });
-        }
-        catch {
-            dispatch({ type: COUNTRIES_SEARCH_FAIL });
-        }
+        dispatch({
+            type: COUNTRIES_SEARCH_SUCCESS,
+            payload: {
+                countries: region ? filterByRegion(inputList, region) : inputList,
+                inputList: inputList
+            }
+        });
+
     }
 }
 

@@ -17,8 +17,7 @@ const detailReducer = (state = initialState, { type, payload }) => {
             return initialState;
         case DETAIL_LOAD_SUCCESS:
             return {
-                details: payload.details,
-                borders: payload.borders,
+                ...payload,
                 loading: false,
                 error: false
             };

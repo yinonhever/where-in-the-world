@@ -4,7 +4,6 @@ import {
     COUNTRIES_LOAD_FAIL,
     COUNTRIES_SEARCH_REQUEST,
     COUNTRIES_SEARCH_SUCCESS,
-    COUNTRIES_SEARCH_FAIL,
     COUNTRIES_FILTER_REGION
 } from "../actions/types";
 
@@ -41,22 +40,10 @@ const countriesReducer = (state = initialState, { type, payload }) => {
                 searchInput: payload
             };
         case COUNTRIES_SEARCH_SUCCESS:
-            return {
-                ...state,
-                countries: payload.countries,
-                inputList: payload.inputList,
-                error: false
-            };
-        case COUNTRIES_SEARCH_FAIL:
-            return {
-                ...state,
-                error: true
-            };
         case COUNTRIES_FILTER_REGION:
             return {
                 ...state,
-                countries: payload.countries,
-                region: payload.region
+                ...payload
             };
         default:
             return state;
