@@ -67,7 +67,7 @@ export const searchCountriesByName = input => async (dispatch, getState) => {
     }
 }
 
-export const filterCountriesByRegion = selection => async (dispatch, getState) => {
+export const filterCountriesByRegion = selection => (dispatch, getState) => {
     const { countries: { initialList, inputList } } = getState();
 
     if (selection === "All Regions") {
