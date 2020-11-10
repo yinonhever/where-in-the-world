@@ -83,6 +83,6 @@ export const filterCountriesByRegion = selection => (dispatch, getState) => {
                 countries: filterByRegion(inputList || initialList, selection),
                 region: selection
             }
-        })
+        });
     }
 }

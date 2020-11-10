@@ -7,7 +7,7 @@ import Error from "./Error";
 import { loadDetails } from "../actions/detail";
 
 const Detail = props => {
-    const { match: { params: { code } } } = props;
+    const { match: { params: { code } }, history } = props;
 
     const dispatch = useDispatch();
 
@@ -15,26 +15,22 @@ const Detail = props => {
     const { initialList: countries } = useSelector(state => state.countries);
 
     useEffect(() => {
-        document.querySelector("body").classList.add("detail");
-        document.querySelector("body").style.overflowY = "scroll";
-    }, [])
-
-    useEffect(() => {
         if (countries && countries.length > 0) {
             dispatch(loadDetails(code, countries));
         }
     }, [dispatch, code, countries])
 
-    const prevPageHandler = () => {
-        props.history.goBack();
-    }
+    useEffect(() => {
+        document.querySelector("body").classList.add("detail");
+        document.querySelector("body").style.overflowY = "scroll";
+    }, [])
 
     return (
         <section className="detail-page">
-            <Button big icon text="Back" clicked={prevPageHandler} style={{ userSelect: "none" }} />
-            {loading ? <Spinner /> : null}
-            {error ? <Error /> : null}
-            {details ? <DetailContent details={details} borders={borders} /> : null}
+            <Button big icon text="Back" clicked={() => history.goBack()} style={{ userSelect: "none" }} />
+            {loading ? <Spinner /> :
+                error ? <Error /> :
+                    details && <DetailContent details={details} borders={borders} />}
         </section>
     )
 }
