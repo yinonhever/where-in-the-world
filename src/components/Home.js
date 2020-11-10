@@ -12,7 +12,6 @@ const Home = () => {
 
     useEffect(() => {
         document.querySelector("body").classList.remove("detail");
-        document.querySelector("body").style.overflow = "initial";
     }, [])
 
     return (

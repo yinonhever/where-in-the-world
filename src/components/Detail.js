@@ -22,7 +22,6 @@ const Detail = props => {
 
     useEffect(() => {
         document.querySelector("body").classList.add("detail");
-        document.querySelector("body").style.overflowY = "scroll";
     }, [])
 
     return (

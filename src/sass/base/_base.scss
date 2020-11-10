@@ -16,6 +16,7 @@ body {
 
   &.detail {
     background-color: $color-white;
+    overflow-y: scroll;
   }
 
   &.dark,
@@ -41,6 +42,6 @@ body {
 
 .detail-page .abs-center {
   @include respond(mobile) {
-     width: 90%;
+    width: 90%;
   }
 }
