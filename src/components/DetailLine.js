@@ -3,10 +3,10 @@ import React from "react";
 const DetailLine = props => {
     let value;
     if (props.number) {
-        value = props.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        value = props.value?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     else {
-        value = props.value.toString().trim() !== "" ? props.value : "-";
+        value = props.value?.toString().trim() ? props.value : "-";
     }
 
     return (

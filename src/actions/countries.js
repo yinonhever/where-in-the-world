@@ -14,7 +14,7 @@ export const loadCountries = () => async dispatch => {
     dispatch({ type: COUNTRIES_LOAD_REQUEST });
 
     try {
-        const { data } = await axios.get("https://restcountries.eu/rest/v2/all");
+        const { data } = await axios.get("https://restcountries.com/v2/all");
 
         dispatch({
             type: COUNTRIES_LOAD_SUCCESS,
@@ -49,7 +49,7 @@ export const searchCountriesByName = input => (dispatch, getState) => {
     else {
         const inputList = initialList.filter(country =>
             country.name.toLowerCase().includes(input.toLowerCase()) ||
-            country.altSpellings.find(name =>
+            country.altSpellings?.find(name =>
                 name.toLowerCase().includes(input.toLowerCase())));
 
         dispatch({
